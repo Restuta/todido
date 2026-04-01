@@ -35,39 +35,24 @@ Over time, this daily comparison makes you measurably better at planning and pri
 
 ## 🚀 Quick start
 
+**1. Install** (one-time setup in your project):
+
 ```bash
-# 1. Copy commands into your project
 mkdir -p .claude/commands
 cp path/to/daily-checkin/commands/*.md .claude/commands/
-
-# 2. Copy the workflow spec
 cp path/to/daily-checkin/daily-workflow.md .
-
-# 3. Start your daily progress file
 cp path/to/daily-checkin/daily-progress.template.md daily-progress.md
 ```
 
-Then run `/checkin` in Claude Code. ✅
+**2. Use it:**
 
----
+Open Claude Code in your project and keep the session running. That's your daily companion.
 
-## ⚙️ How it works
+- ☀️ **Every morning** — just say "morning check-in" and it will walk you through reflecting on yesterday + planning today
+- 📝 **Throughout the day** — just tell Claude what you did ("finished the API endpoint", "helped debug auth issue") and it logs it
+- 🌙 **End of day** (optional) — say "end of day" and it wraps up what got done vs what was planned
 
-**Three modes:**
-
-| Mode | Trigger | What happens |
-|------|---------|-------------|
-| 🌅 Morning check-in | `/checkin` | Reflect on yesterday, plan today, write to log |
-| 📝 Mid-day logging | Just tell Claude | Appends to `daily-progress.md`, commits |
-| 🌙 End of day | `/eod` | Records what got done, appends Done section |
-
-**The morning flow is interactive** — Claude walks you through it step by step:
-
-1. Shows yesterday's plan vs what actually got done
-2. Asks you to write a reflection
-3. Surfaces carry-over candidates
-4. Asks what's planned for today
-5. Writes today's entry
+That's it. No setup beyond copying the files. No dashboards, no apps, no accounts.
 
 ---
 
