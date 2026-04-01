@@ -83,9 +83,13 @@ Then run `/checkin` in Claude Code.
 
 ## Philosophy
 
-This system is a daily feedback loop. Every morning you compare what you planned vs what you did, reflect on why they diverged, and use that to plan better today. The carry-over counter makes invisible procrastination visible. The 3-day rule forces decisions instead of letting items rot.
+Many years of building products and managing my own productivity condensed into one process: **plan your day, log your progress, check in every morning.**
 
-The AI helps with the mechanics — scanning for activity, tracking carry-overs, formatting the log. But the reflection is always yours. The system is opinionated about structure and unopinionated about content.
+The key insight is the morning check-in. You look at what you planned yesterday vs what you actually accomplished. That gap — between intention and reality — is where all the learning happens. Did you get pulled into unplanned work? Was it worth it? Did you avoid something important? Over time, this daily comparison makes you measurably better at planning and prioritizing.
+
+Plain text files, no complicated tools. A markdown file and an AI assistant that walks you through the process. That's it.
+
+The carry-over counter makes invisible procrastination visible. The 3-day rule forces decisions instead of letting items rot. The reflection is always yours — never AI-generated.
 
 ## License
 
