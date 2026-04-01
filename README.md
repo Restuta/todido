@@ -33,26 +33,19 @@ Over time, this daily comparison makes you measurably better at planning and pri
 
 ---
 
-## 🚀 Quick start
+## 🚀 Install
 
-**1. Install** (one-time setup in your project):
+Paste this into Claude Code:
 
-```bash
-mkdir -p .claude/commands
-cp path/to/daily-checkin/commands/*.md .claude/commands/
-cp path/to/daily-checkin/daily-workflow.md .
-cp path/to/daily-checkin/daily-progress.template.md daily-progress.md
-```
+> Clone https://github.com/Restuta/daily-checkin and install it into this project
 
-**2. Use it:**
+**Then just use it:**
 
-Open Claude Code in your project and keep the session running. That's your daily companion.
+- ☀️ **Every morning** — say "morning check-in" and it walks you through reflecting on yesterday + planning today
+- 📝 **Throughout the day** — tell Claude what you did and it logs it
+- 🌙 **End of day** (optional) — say "end of day" to wrap up
 
-- ☀️ **Every morning** — just say "morning check-in" and it will walk you through reflecting on yesterday + planning today
-- 📝 **Throughout the day** — just tell Claude what you did ("finished the API endpoint", "helped debug auth issue") and it logs it
-- 🌙 **End of day** (optional) — say "end of day" and it wraps up what got done vs what was planned
-
-That's it. No setup beyond copying the files. No dashboards, no apps, no accounts.
+Keep your Claude Code session running — it's your daily companion.
 
 ---
 
