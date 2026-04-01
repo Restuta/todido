@@ -84,6 +84,8 @@ Keep your Claude Code session running — it's your daily companion.
 
 ## 🔧 Customization
 
+🛡️ **Safety rules** — `rules/daily-progress.md` auto-loads whenever Claude touches your log. Enforces append-only, user-confirmed scan results, and voice preservation. Copy to `.claude/rules/` during install.
+
 🔎 **GitHub scanning** — Edit `daily-workflow.md` and add your GitHub orgs/repos to the optional scanning section. The check-in will scan for PRs and commits you forgot to log.
 
 💬 **Slack integration** — See [`slack-addon/`](slack-addon/) — posts your check-in to a Slack channel and updates it at end of day.
