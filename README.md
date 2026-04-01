@@ -2,6 +2,16 @@
 
 A daily check-in system for [Claude Code](https://claude.ai/download). Morning planning, carry-over tracking, and end-of-day wrap-ups — all in a markdown file.
 
+## Philosophy
+
+Many years of building products and managing my own productivity condensed into one process: **plan your day, log your progress, check in every morning.**
+
+The key insight is the morning check-in. You look at what you planned yesterday vs what you actually accomplished. That gap — between intention and reality — is where all the learning happens. Did you get pulled into unplanned work? Was it worth it? Did you avoid something important? Over time, this daily comparison makes you measurably better at planning and prioritizing.
+
+Plain text files, no complicated tools. A markdown file and an AI assistant that walks you through the process. That's it.
+
+The carry-over counter makes invisible procrastination visible. The 3-day rule forces decisions instead of letting items rot. The reflection is always yours — never AI-generated.
+
 ## What it does
 
 - **Morning check-in:** reflect on yesterday, plan today, track what carries over
@@ -80,16 +90,6 @@ Then run `/checkin` in Claude Code.
 **Add GitHub scanning:** Edit `daily-workflow.md` and add your GitHub orgs/repos to the optional scanning section. The check-in will scan for PRs and commits you forgot to log.
 
 **Add Slack integration:** See [`slack-addon/`](slack-addon/) — posts your check-in to a Slack channel and updates it at end of day.
-
-## Philosophy
-
-Many years of building products and managing my own productivity condensed into one process: **plan your day, log your progress, check in every morning.**
-
-The key insight is the morning check-in. You look at what you planned yesterday vs what you actually accomplished. That gap — between intention and reality — is where all the learning happens. Did you get pulled into unplanned work? Was it worth it? Did you avoid something important? Over time, this daily comparison makes you measurably better at planning and prioritizing.
-
-Plain text files, no complicated tools. A markdown file and an AI assistant that walks you through the process. That's it.
-
-The carry-over counter makes invisible procrastination visible. The 3-day rule forces decisions instead of letting items rot. The reflection is always yours — never AI-generated.
 
 ## License
 
