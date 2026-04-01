@@ -1,4 +1,6 @@
-# 📋 daily-checkin
+# 🎺 todido
+
+Plan it. Did it. Do it again.
 
 A daily check-in system for [Claude Code](https://claude.ai/download). Morning planning, carry-over tracking, and end-of-day wrap-ups — all in a markdown file.
 
@@ -37,7 +39,7 @@ Over time, this daily comparison makes you measurably better at planning and pri
 
 Paste this into Claude Code:
 
-> Clone https://github.com/Restuta/daily-checkin and install it into this project
+> Clone https://github.com/Restuta/todido and install it into this project
 
 **Then just use it:**
 
