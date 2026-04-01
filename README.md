@@ -83,25 +83,22 @@ Then run `/checkin` in Claude Code. ✅
 
 ---
 
-## 📖 What the daily log looks like
+## 📖 What a morning check-in looks like
 
-```markdown
-## Tuesday, January 7, 2025
+**Yesterday:**
+✓ (done) Implement user search endpoint
+✓ (done) Write API documentation — finally knocked this out
+✓ (done) Fixed flaky auth test blocking CI (unplanned)
+↳ Deploy staging environment — blocked on DNS
+(postponed) Set up monitoring dashboard
 
-### Plan
-- ↳ (carry over 1d) Write API documentation
-- Implement user search endpoint
-- (postponed) Set up monitoring dashboard
+💭 CI setup ate the afternoon. API docs carry over. Good call helping with onboarding — they were stuck.
 
-### Done
-- ✓ (done) Implement user search endpoint
-- ✓ (done) Write API documentation — finally knocked this out
-- ✓ (done) Fixed flaky auth test blocking CI (unplanned)
-- (postponed) Set up monitoring dashboard
-
-### Reflection
-💭 Good day. Got the carry-over done first which felt great.
-```
+**Plan for today:**
+• Finish staging deploy
+• Set up error tracking
+↳ (carry over 1d) Deploy staging environment
+(postponed) Set up monitoring dashboard
 
 ---
 
