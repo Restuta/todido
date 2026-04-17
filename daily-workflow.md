@@ -124,7 +124,12 @@ If you want the check-in to scan GitHub for activity you may have forgotten to l
 - YOUR_USERNAME/YOUR_REPO
 ```
 
-The check-in skill will scan these for PRs, commits, and issues on the target day, then show findings and ask before adding them to the log.
+The check-in skill will scan these for the target day and show findings before adding them to the log. Scan must include:
+- **Authored PRs and issues** — PRs/issues you created or updated
+- **PR reviews and comments** — PRs you reviewed, commented on, or approved (use the GitHub events API for `PullRequestReviewEvent`). This catches code review work that wouldn't show up in an author-only search.
+- **Commits** — direct pushes outside of PRs
+
+Present all findings grouped by type (authored, reviewed, commits) and ask before adding.
 
 ## Finalization
 
