@@ -17,8 +17,8 @@ Source of truth for shared rules (symbols, format): [`../../daily-workflow.md`](
 
 ## What this skill touches
 
-- **Reads:** `daily-progress.md`
-- **Writes:** `daily-progress.md` (new day entry + reflection on previous day)
+- **Reads:** `daily-progress.md`, `upcoming.md` (if present)
+- **Writes:** `daily-progress.md` (new day entry + reflection on previous day), `upcoming.md` (removes accepted items)
 - **Commits** after writing
 
 ## Boundaries — READ CAREFULLY
@@ -37,15 +37,31 @@ Walk through the morning step by step using AskUserQuestion. Do NOT dump all que
 1. **Show plan vs done contrast** — display the last entry's plan and done side by side. This is essential context before asking for reflection.
 2. **Ask for reflection** — present the analysis ("your plan had X, you did Y, divergence looked like Z"), then ask the user to write their reflection. **Never write the reflection yourself.** Use their exact words verbatim.
 3. **Handle 3-day carry-overs** — any item reaching `↳ (carry over 3d)` triggers a decision: recommit, postpone, or drop.
-4. **Ask for today's plan** — surface carry-over candidates.
-5. **Write today's entry** to `daily-progress.md` and append the `<!-- checkin:morning -->` marker immediately after the plan items.
-6. **Seed `/tasks`** — after committing, call `TaskCreate` once per plan item so the day's plan is visible in the task list. Use the plan item text verbatim (including any `↳ (carry over Nd)` prefix). Skip `(postponed)` items. All tasks start in `pending` state — do not mark anything in-progress on creation.
+4. **Surface `upcoming.md` items** — if `upcoming.md` exists, read it and collect items whose date is today or earlier (overdue). Present them as plan candidates before asking for today's plan. When an item is accepted into today's plan, remove its line from `upcoming.md` (if the date section becomes empty, remove the heading too). Items with future dates stay in `upcoming.md`.
+5. **Ask for today's plan** — surface carry-over candidates and accepted `upcoming.md` items.
+6. **Write today's entry** to `daily-progress.md` and append the `<!-- checkin:morning -->` marker immediately after the plan items.
+7. **Seed `/tasks`** — after committing, call `TaskCreate` once per plan item so the day's plan is visible in the task list. Use the plan item text verbatim (including any `↳ (carry over Nd)` prefix). Skip `(postponed)` items. All tasks start in `pending` state — do not mark anything in-progress on creation.
 
 ## Catch-up mode
 
 If the user skipped days since the last entry, combine into a single flow:
 - Write reflections for each skipped day that had a plan
 - Then proceed with today's planning
+
+## upcoming.md format (optional)
+
+Park future-dated todos in `upcoming.md`. `/checkin` surfaces items whose date is today or earlier, and removes them from the file when accepted. Keeps `daily-progress.md` as a journal of what actually happened, while `upcoming.md` is the queue of what's planned.
+
+```markdown
+# Upcoming
+
+## Thursday, April 23, 2026
+
+- [project] Item description
+- Another item
+```
+
+Date headings match `daily-progress.md` format (`## Day, Month Date, Year`). When a line is accepted into today's plan, remove it; if the date section becomes empty, remove the heading too.
 
 ## daily-progress.md format
 
