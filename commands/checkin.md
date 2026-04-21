@@ -13,6 +13,7 @@ Source of truth for shared rules (symbols, format): [`../../daily-workflow.md`](
 5. Writes today's entry to `daily-progress.md`
 6. Appends `<!-- checkin:morning -->` marker
 7. Commits
+8. **Seeds the task list** — calls `TaskCreate` for each of today's plan items so they show up in `/tasks`. Carry-overs keep their `↳ (carry over Nd)` prefix; postponed items are skipped. This is always the final step.
 
 ## What this skill touches
 
@@ -38,6 +39,7 @@ Walk through the morning step by step using AskUserQuestion. Do NOT dump all que
 3. **Handle 3-day carry-overs** — any item reaching `↳ (carry over 3d)` triggers a decision: recommit, postpone, or drop.
 4. **Ask for today's plan** — surface carry-over candidates.
 5. **Write today's entry** to `daily-progress.md` and append the `<!-- checkin:morning -->` marker immediately after the plan items.
+6. **Seed `/tasks`** — after committing, call `TaskCreate` once per plan item so the day's plan is visible in the task list. Use the plan item text verbatim (including any `↳ (carry over Nd)` prefix). Skip `(postponed)` items. All tasks start in `pending` state — do not mark anything in-progress on creation.
 
 ## Catch-up mode
 
