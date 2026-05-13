@@ -11,9 +11,10 @@ Source of truth for shared rules (symbols, format): [`../../daily-workflow.md`](
 3. Asks for reflection interactively (use AskUserQuestion)
 4. Asks for today's plan interactively
 5. Writes today's entry to `daily-progress.md`
-6. Drafts and posts a new Slack message
+6. Drafts and posts a new Slack message (via `slack-post.mjs`)
 7. Appends `<!-- slack:posted ts=... -->` marker
 8. Commits
+9. **Reconciles the task list** — call `TaskList`, mark any stale `pending` tasks from the previous check-in as `completed`/`deleted`, then `TaskCreate` for today's new plan items.
 
 ## What this skill touches
 
@@ -24,7 +25,7 @@ Source of truth for shared rules (symbols, format): [`../../daily-workflow.md`](
 
 ## Boundaries — READ CAREFULLY
 
-- This skill **posts a NEW Slack message**. It never updates an existing one. Never call `chat.update`.
+- This skill **posts a NEW Slack message** (initial post). The one exception: if the user catches a formatting or content problem in the just-posted message, use `chat.update` on the same `ts` to fix it in place — do NOT delete and repost (that creates a new ts, drops the original notification, and complicates the marker bookkeeping).
 - After posting to Slack, append the `<!-- slack:posted ts=... -->` marker immediately after the plan items.
 - All new content goes AFTER any existing markers. `daily-progress.md` is append-only.
 - Never insert items above existing content or reorder entries.
@@ -68,19 +69,33 @@ Also pass `text` field as plaintext fallback for notifications.
 
 ## Slack posting
 
+**Always go through `slack-addon/slack-post.mjs`.** Do not build Block Kit JSON inline — that's where the "list became a blob of emojis" and "PR numbers not linked" failures come from. The helper enforces:
+- Every list line starts with `• ` (Slack mrkdwn only renders a list when the line literally starts with that)
+- Every PR reference renders as `<https://github.com/{org}/{repo}/pull/{N}|#N>` (build from `{org,repo,n}`)
+- `filter_tags` / `filter_repos` strip items you don't want in Slack (e.g. personal tags or unrelated repos)
+- `chat.update` when `ts` is provided; `chat.postMessage` otherwise
+
+Flow:
 ```bash
+# 1. Build a spec JSON (see slack-addon/__fixtures__/checkin-spec.example.json for shape).
+# 2. Dry-run first to confirm the rendered payload.
+node slack-addon/slack-post.mjs --spec /tmp/checkin-spec.json --dry-run
+
+# 3. Post when satisfied.
 export $(grep -v '^#' .env | xargs)
+node slack-addon/slack-post.mjs --spec /tmp/checkin-spec.json
+
+# 4. To fix the just-posted message in place, pass --ts <ts> (or set ts in the spec).
+node slack-addon/slack-post.mjs --spec /tmp/checkin-spec.json --ts 1778508299.004599
 ```
 
-Post new message:
-```bash
-curl -s -X POST https://slack.com/api/chat.postMessage \
-  -H "Authorization: Bearer $SLACK_USER_TOKEN" \
-  -H "Content-Type: application/json; charset=utf-8" \
-  -d '{"channel":"'"$SLACK_CHANNEL_ID"'","text":"FALLBACK","blocks":[...]}'
-```
+The helper prints `{ ok: true, ts: "..." }` on success. Capture that `ts` for the `<!-- slack:posted ts=... -->` marker. Always show the rendered draft to the user and get confirmation before posting.
 
-Always show the draft to the user and get confirmation before posting.
+Tests: `node slack-addon/slack-post.test.mjs` (runs invariant checks; CI/manual).
+
+### GitHub scan: `updated_at` vs `created_at`
+
+When pulling PR activity via `gh api search/issues?q=updated:>=...`, a PR in the result was *touched* in the window — not necessarily opened. Only label a PR as "opened" if `created_at` is also in the window. Otherwise describe accurately ("updated", "rebased", "commented on") or skip surfacing it.
 
 ## Slack filtering (optional)
 

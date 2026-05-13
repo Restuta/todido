@@ -13,7 +13,7 @@ Source of truth for shared rules (symbols, format): [`../../daily-workflow.md`](
 5. Writes today's entry to `daily-progress.md`
 6. Appends `<!-- checkin:morning -->` marker
 7. Commits
-8. **Seeds the task list** — calls `TaskCreate` for each of today's plan items so they show up in `/tasks`. Carry-overs keep their `↳ (carry over Nd)` prefix; postponed items are skipped. This is always the final step.
+8. **Reconciles the task list** — first call `TaskList`. For every `pending` task left from the previous check-in, mark it `completed` (it shipped), `deleted` (it was dropped/postponed), or leave it alone only if the user explicitly chose to keep it. Then call `TaskCreate` once per *new* plan item so today's plan shows up in `/tasks`. Carry-overs keep their `↳ (carry over Nd)` prefix; postponed items are skipped. All new tasks start `pending`. Never let stale completed work sit as `pending` — `/tasks` should reflect today, not yesterday.
 
 ## What this skill touches
 
@@ -40,7 +40,7 @@ Walk through the morning step by step using AskUserQuestion. Do NOT dump all que
 4. **Surface `upcoming.md` items** — if `upcoming.md` exists, read it and collect items whose date is today or earlier (overdue). Present them as plan candidates before asking for today's plan. When an item is accepted into today's plan, remove its line from `upcoming.md` (if the date section becomes empty, remove the heading too). Items with future dates stay in `upcoming.md`.
 5. **Ask for today's plan** — surface carry-over candidates and accepted `upcoming.md` items.
 6. **Write today's entry** to `daily-progress.md` and append the `<!-- checkin:morning -->` marker immediately after the plan items.
-7. **Seed `/tasks`** — after committing, call `TaskCreate` once per plan item so the day's plan is visible in the task list. Use the plan item text verbatim (including any `↳ (carry over Nd)` prefix). Skip `(postponed)` items. All tasks start in `pending` state — do not mark anything in-progress on creation.
+7. **Reconcile `/tasks`** — after committing, call `TaskList`. Mark every `pending` task from the prior check-in as `completed` (if it shipped) or `deleted` (if dropped/postponed). Then call `TaskCreate` once per new plan item. Use the plan item text verbatim (including any `↳ (carry over Nd)` prefix). Skip `(postponed)` items. New tasks start `pending`. The task list must reflect today, not yesterday — don't leave stale work pending.
 
 ## Catch-up mode
 

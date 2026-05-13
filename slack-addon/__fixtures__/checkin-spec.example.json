@@ -1,0 +1,48 @@
+{
+  "channel": "C0XXXXXXXXX",
+  "header": "Yesterday",
+  "stats": { "commits": 12, "prs_merged": 2, "prs_reviewed": 3 },
+  "by_project": [
+    {
+      "tag": "web",
+      "emoji": "🚀",
+      "summary": "ship the new landing page",
+      "prs": [
+        { "org": "myorg", "repo": "web", "n": 42 },
+        { "org": "myorg", "repo": "web", "n": 43, "emoji": "🔧" }
+      ]
+    },
+    {
+      "tag": "api",
+      "emoji": "🛠️",
+      "summary": "refactor auth middleware",
+      "prs": [{ "org": "myorg", "repo": "api", "n": 17, "label": "api #17" }]
+    },
+    {
+      "tag": "personal",
+      "summary": "this won't show because filter_tags strips it"
+    }
+  ],
+  "still_open": "auth flow",
+  "still_open_prs": [{ "org": "myorg", "repo": "web", "n": 50, "emoji": "🚧" }],
+  "reviewed": {
+    "preamble": "API PRs ",
+    "prs": [
+      { "org": "myorg", "repo": "api", "n": 18 },
+      { "org": "myorg", "repo": "api", "n": 19 }
+    ],
+    "trailer": " — second pass on the rewrite"
+  },
+  "reflection": {
+    "symbol": "💭",
+    "text": "Good day. Need to be more careful about scope tomorrow."
+  },
+  "plan": [
+    { "tag": "web", "text": "Finish the landing page CTA section", "carry": true },
+    { "tag": "api", "text": "Land auth refactor", "pr_ref": { "org": "myorg", "repo": "api", "n": 17, "label": "api #17" } },
+    { "tag": "ops", "text": "Triage Sentry alerts" }
+  ],
+  "footer": "🧬 _Daily fun fact in italics. Optional._",
+  "filter_tags": ["personal"],
+  "filter_repos": []
+}

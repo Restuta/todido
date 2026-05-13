@@ -88,7 +88,7 @@ Keep your Claude Code session running — it's your daily companion.
 
 🔎 **GitHub scanning** — Edit `daily-workflow.md` and add your GitHub orgs/repos to the optional scanning section. The check-in will scan for PRs and commits you forgot to log.
 
-💬 **Slack integration** — See [`slack-addon/`](slack-addon/) — posts your check-in to a Slack channel and updates it at end of day.
+💬 **Slack integration** — See [`slack-addon/`](slack-addon/) — posts your check-in to a Slack channel and updates it at end of day. Includes `slack-post.mjs`, a deterministic Block Kit builder with invariant tests that prevents the two most common rendering bugs (lists that render as paragraph blobs, PR numbers that aren't clickable).
 
 ---
 
