@@ -1,7 +1,7 @@
 {
   "channel": "C0XXXXXXXXX",
   "header": "Yesterday",
-  "stats": { "commits": 12, "prs_merged": 2, "prs_reviewed": 3 },
+  "stats": { "commits": 12, "prs_merged": 2, "prs_reviewed": 3, "lines_added": 423, "lines_removed": 187 },
   "by_project": [
     {
       "tag": "web",

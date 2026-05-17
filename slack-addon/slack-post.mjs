@@ -34,7 +34,8 @@ const spec = JSON.parse(readFileSync(args.spec, "utf8"));
 //   "channel": "C0XXXXXXXXX",        // optional; falls back to SLACK_CHANNEL_ID env
 //   "ts": "1778508299.004599",       // optional → chat.update; omit for chat.postMessage
 //   "header": "This week" | "Yesterday" | "Since last update",
-//   "stats": { "commits": 100, "prs_merged": 10, "prs_reviewed": 5, "approx_reviews": true },
+//   "stats": { "commits": 100, "prs_merged": 10, "prs_reviewed": 5, "approx_reviews": true,
+//              "lines_added": 12345, "lines_removed": 6789 },  // diff stats render as "(+12345/-6789)" after commits
 //   "shipped": [ { "emoji": "🚀", "text": "..." } ],            // optional subsection
 //   "by_project": [
 //     {
@@ -78,9 +79,14 @@ fallbackParts.push(spec.header);
 
 // stats context
 if (spec.stats) {
-  const { commits, prs_merged, prs_reviewed, approx_reviews } = spec.stats;
+  const { commits, prs_merged, prs_reviewed, approx_reviews, lines_added, lines_removed } = spec.stats;
   const segs = [];
-  if (commits != null) segs.push(`${commits} commits`);
+  if (commits != null) {
+    const diff = (lines_added != null || lines_removed != null)
+      ? ` (+${lines_added ?? 0}/-${lines_removed ?? 0})`
+      : "";
+    segs.push(`${commits} commits${diff}`);
+  }
   if (prs_merged != null) segs.push(`${prs_merged} PRs merged`);
   if (prs_reviewed != null) segs.push(`${prs_reviewed}${approx_reviews ? "+" : ""} PRs reviewed`);
   if (segs.length) {

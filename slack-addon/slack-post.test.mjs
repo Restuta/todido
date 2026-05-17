@@ -65,7 +65,13 @@ for (const line of planLines) {
 // Invariant 5: no double commas.
 assert("no double commas", !/,\s*,/.test(allText));
 
-// Invariant 6: rejects PR ref missing repo.
+// Invariant 6: stats line renders diff stats as "(+added/-removed)" right after commits when present.
+const statsBlock = blocks.find(b => b.type === "context" && b.elements?.[0]?.text?.includes("commits"));
+assert("stats block exists", !!statsBlock);
+const statsText = statsBlock?.elements?.[0]?.text || "";
+assert(`stats includes diff stats: ${statsText}`, /12 commits \(\+423\/-187\)/.test(statsText));
+
+// Invariant 7: rejects PR ref missing repo.
 const tmp = mkdtempSync(join(tmpdir(), "slack-post-test-"));
 const bad = join(tmp, "bad.json");
 writeFileSync(bad, JSON.stringify({ header: "X", by_project: [{ tag: "x", summary: "y", prs: [{ org: "a", n: 1 }] }] }));
